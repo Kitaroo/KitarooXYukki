@@ -77,7 +77,7 @@ async def quality_markup(_, CallbackQuery):
             pass
         else:
             return await CallbackQuery.answer(
-                Maaf! Bot hanya memungkinkan jumlah panggilan video terbatas karena masalah overload CPU. Obrolan lain menggunakan video call sekarang. Coba beralih ke audio atau coba lagi nanti",
+                "Maaf! Bot hanya memungkinkan jumlah panggilan video terbatas karena masalah overload CPU. Obrolan lain menggunakan video call sekarang. Coba beralih ke audio atau coba lagi nanti",
                 show_alert=True,
             )
     if CallbackQuery.message.chat.id not in db_mem:
