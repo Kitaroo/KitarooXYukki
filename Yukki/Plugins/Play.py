@@ -16,6 +16,7 @@ from Yukki.Decorators.assistant import AssistantAdd
 from Yukki.Decorators.checker import checker
 from Yukki.Decorators.logger import logging
 from Yukki.Decorators.permission import PermissionCheck
+from Yukki.Decorators.admins import AdminRightsCheck
 from Yukki.Inline import (livestream_markup, playlist_markup, search_markup,
                           search_markup2, url_markup, url_markup2)
 from Yukki.Utilities.changers import seconds_to_min, time_to_seconds
@@ -29,6 +30,46 @@ from Yukki.Utilities.youtube import (get_yt_info_id, get_yt_info_query,
                                      get_yt_info_query_slider)
 
 loop = asyncio.get_event_loop()
+
+
+DISABLED_GROUPS = []
+useer = "NaN"
+
+
+@app.on_message(filters.command(["player", f"player@{BOT_USERNAME}"])& ~filters.edited & ~filters.bot & ~filters.private)
+@AdminRightsCheck
+async def music_onoff(_, message: Message):
+    user_id = message.from_user.id
+    chat_title = message.chat.title
+    global DISABLED_GROUPS
+    try:
+        user_id
+    except:
+        return
+    if len(message.command) != 2:
+        return await message.reply_text(
+            "😕 **Salah Penggunaan Perintah.**\n\n» Coba `/musicplayer on` atau `/musicplayer off`"
+        )
+    status = message.text.split(None, 1)[1]
+    message.chat.id
+    if status in ("ON", "on", "On"):
+        lel = await message.reply("`Processing...`")
+        if not message.chat.id in DISABLED_GROUPS:
+            return await lel.edit("» **Playermusik sudah nyala ya pren...**")
+        DISABLED_GROUPS.remove(message.chat.id)
+        await lel.edit(f"✅ **Musik dihidupin.**\n\n• Karna hidup ga sia sia...")
+
+    elif status in ("OFF", "off", "Off"):
+        lel = await message.reply("`Processing...`")
+
+        if message.chat.id in DISABLED_GROUPS:
+            return await lel.edit("» **Musiknya udah mati kek bapak lu...**")
+        DISABLED_GROUPS.append(message.chat.id)
+        await lel.edit(f"✅ **Musik dimatiin.**\n\n• Kalo Udah takdir kita bisa apa?")
+    else:
+        return await message.reply_text(
+            "😕 **Salah Penggunaan Perintah.**\n\n» Coba `/musicplayer on` atau `/musicplayer off`",
+        )
 
 
 @app.on_message(
