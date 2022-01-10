@@ -14,7 +14,7 @@ from Yukki.Database import (get_active_video_chats, get_video_limit,
                             is_active_video_chat)
 from Yukki.Decorators.assistant import AssistantAdd
 from Yukki.Decorators.checker import checker
-from Yukki.Decorators.logger.logs import LOG_CHAT
+from Yukki.Core.logger.logs import LOG_CHAT
 from Yukki.Decorators.permission import PermissionCheck
 from Yukki.Decorators.admins import AdminRightsCheck
 from Yukki.Inline import (livestream_markup, playlist_markup, search_markup,
