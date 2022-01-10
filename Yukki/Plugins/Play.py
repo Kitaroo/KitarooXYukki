@@ -14,7 +14,7 @@ from Yukki.Database import (get_active_video_chats, get_video_limit,
                             is_active_video_chat)
 from Yukki.Decorators.assistant import AssistantAdd
 from Yukki.Decorators.checker import checker
-from Yukki.Decorators.logger import logging
+from Yukki.Decorators.logger.logs import LOG_CHAT
 from Yukki.Decorators.permission import PermissionCheck
 from Yukki.Decorators.admins import AdminRightsCheck
 from Yukki.Inline import (livestream_markup, playlist_markup, search_markup,
@@ -76,7 +76,6 @@ async def music_onoff(_, message: Message):
     filters.command(["play", f"play@{BOT_USERNAME}"]) & filters.group
 )
 @checker
-@logging
 @PermissionCheck
 @AssistantAdd
 async def play(_, message: Message):
@@ -214,7 +213,7 @@ async def play(_, message: Message):
             )
             return
         what = "Query Given"
-        await logging(message, what)
+        await LOG_CHAT(message, what)
         mystic = await message.reply_text("🔍 **Mencari**...")
         query = message.text.split(None, 1)[1]
         (
