@@ -31,11 +31,11 @@ __MODULE__ = "Essentials"
 __HELP__ = """
 
 
-/start 
+/mstart 
 - Start the Bot.
 
 
-/help 
+/mhelp 
 - Get Commands Helper Menu.
 
 
@@ -94,7 +94,7 @@ async def welcome(_, message: Message):
             return
 
 
-@app.on_message(filters.command(["help", "start"]) & filters.group)
+@app.on_message(filters.command(["mhelp", "mstart"]) & filters.group)
 @PermissionCheck
 async def useradd(_, message: Message):
     out = start_pannel()
