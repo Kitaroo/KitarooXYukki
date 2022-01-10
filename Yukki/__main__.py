@@ -357,7 +357,7 @@ async def start_command(_, message):
    # await message.reply_text(
    #     home_text_pm,
    #     reply_markup=InlineKeyboardMarkup(out[1]),
-    )
+   # )
     if await is_on_off(5):
         sender_id = message.from_user.id
         sender_name = message.from_user.first_name
