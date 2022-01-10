@@ -213,6 +213,8 @@ async def play(_, message: Message):
                 reply_markup=InlineKeyboardMarkup(buttons),
             )
             return
+        what = "Query Given"
+        await logging(message, what)
         mystic = await message.reply_text("🔍 **Mencari**...")
         query = message.text.split(None, 1)[1]
         (
