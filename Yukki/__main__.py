@@ -294,7 +294,7 @@ async def start_command(_, message):
        #     await message.delete()
        #     return await app.send_text(
        #         message.chat.id,
-       $         text,
+       #         text,
        #         reply_markup=keyboard,
        #     )
         if name[0] == "i":
