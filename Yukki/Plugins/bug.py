@@ -36,7 +36,7 @@ async def bug(_, message):
         chatusername = f"{message.chat.title}"
     if not report:
         await message.reply(
-            "Contoh menggunakan fitur ini\n`/bug assisten ga mau turun`",
+            "Contoh menggunakan fitur ini\n`/bug assisten ga turun`",
         )
         return
     await app.send_message(
@@ -63,7 +63,7 @@ async def bug(_, message):
         ),
     )
     await message.reply(
-        f"**🙏🏻 Terimakasih {message.from_user.mention} laporan anda telah terkirim ke admin**"
+        f"**🙏🏻 Terimakasih {message.from_user.mention} laporan anda sedang di proses oleh admin**"
     )
 
 
