@@ -7,6 +7,7 @@ load_dotenv()
 # VARS
 
 get_queue = {}
+SUP_GROUP = getenv("SUP_GROUP", None)
 BOT_TOKEN = getenv("BOT_TOKEN")
 API_ID = int(getenv("API_ID", ""))
 API_HASH = getenv("API_HASH")
