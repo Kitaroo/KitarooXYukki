@@ -9,7 +9,7 @@ from Yukki import (
     SUDOERS, 
     app, 
 )
-from Music.config import SUPPORT_GROUP
+from Music.config import SUP_GROUP
 
 def get_text(message) -> [None, str]:
     text_to_return = message.text
@@ -40,7 +40,7 @@ async def bug(_, message):
         )
         return
     await app.send_message(
-        SUPPORT_GROUP,
+        SUP_GROUP,
         f"""
 **✅ [{OWNER_NAME}](t.me/{OWNER_USERNAME}) Ada Laporan Baru
 
