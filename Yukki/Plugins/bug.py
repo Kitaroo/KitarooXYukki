@@ -9,7 +9,7 @@ from Yukki import (
     SUDOERS, 
     app, 
 )
-from Music.config import SUP_GROUP
+from Yukki.config import SUP_GROUP
 
 def get_text(message) -> [None, str]:
     text_to_return = message.text
