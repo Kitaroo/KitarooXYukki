@@ -446,7 +446,7 @@ async def play_playlist(_, CallbackQuery):
                 got_queue.append(to_append)
                 await music_on(chat_id)
                 await add_active_chat(chat_id)
-                cap = f"🎥<b>**Bermain:** </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n✨<b>__Powered By Scarlet__\n👤**Diminta Oleh:** {CallbackQuery.from_user.mention}"
+                cap = f"🎥<b>**Bermain:** </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n✨<b>__Powered By Scarlet__</b>\n👤**Diminta Oleh:** {CallbackQuery.from_user.mention}"
                 final_output = await CallbackQuery.message.reply_photo(
                     photo=thumb,
                     reply_markup=InlineKeyboardMarkup(buttons),
