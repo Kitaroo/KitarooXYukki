@@ -52,7 +52,7 @@ async def start_stream_video(message, file, title, mystic):
         final_output = await message.reply_photo(
             photo="Utils/Telegram.JPEG",
             caption=(
-                f"🎬<b>**Video:** </b> [Given Video Via Telegram]({link})\n\n👤<b>**Diminta Oleh:** </b>{message.from_user.mention} \n🚧<b>**Antrian Ke**</b> <b>#{position}!</b>"
+                f"🎬<b>Video: </b> [Given Video Via Telegram]({link})\n\n👤<b>Diminta Oleh: </b>{message.from_user.mention} \n🚧<b>Antrian Ke:</b> <b>#{position}!</b>"
             ),
             reply_markup=audio_markup2,
         )
@@ -75,7 +75,7 @@ async def start_stream_video(message, file, title, mystic):
         await add_active_video_chat(message.chat.id)
         buttons = secondary_markup2("Smex1", message.from_user.id)
         await mystic.delete()
-        cap = f"🎥<b>**Bermain </b>[Given Video Via Telegram]({link})\n👤**Diminta Oleh:** {message.from_user.mention}"
+        cap = f"🎥<b>Bermain: </b>[Given Video Via Telegram]({link})\n👤**Diminta Oleh:** {message.from_user.mention}"
         final_output = await message.reply_photo(
             photo="Utils/Telegram.JPEG",
             reply_markup=InlineKeyboardMarkup(buttons),
@@ -118,7 +118,7 @@ async def start_live_stream(
     await add_active_chat(CallbackQuery.message.chat.id)
     await add_active_video_chat(CallbackQuery.message.chat.id)
     buttons = secondary_markup2(videoid, CallbackQuery.from_user.id)
-    cap = f"**Live Streaming**\n\n🎥<b>**Bermain:** </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n✨<b>__Powered By Scarlet\n👤**Diminta Oleh:** {CallbackQuery.from_user.mention}"
+    cap = f"**Live Streaming**\n\n🎥<b>Bermain: </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n✨<b>__Powered By Scarlet__</b>\n👤**Diminta Oleh:** {CallbackQuery.from_user.mention}"
     final_output = await CallbackQuery.message.reply_photo(
         photo=thumb,
         reply_markup=InlineKeyboardMarkup(buttons),
@@ -172,7 +172,7 @@ async def start_video_stream(
         final_output = await CallbackQuery.message.reply_photo(
             photo=thumb,
             caption=(
-                f"🎬<b>**Video:** </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n⏳<b>**Durasi:**</b> {duration_min} \n✨<b>__Powered By Scarlet\n👤<b>**Diminta Oleh:** </b>{CallbackQuery.from_user.mention} \n🚧<b>**Vide Antrian Ke:**</b> <b>#{position}!</b>"
+                f"🎬<b>Video: </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n⏳<b>Durasi:</b> {duration_min} \n✨<b>__Powered By Scarlet__</b>\n👤<b>Diminta Oleh: </b>{CallbackQuery.from_user.mention} \n🚧<b>Video Antrian Ke:</b> <b>#{position}!</b>"
             ),
             reply_markup=InlineKeyboardMarkup(buttons),
         )
@@ -200,7 +200,7 @@ async def start_video_stream(
         buttons = primary_markup(
             videoid, CallbackQuery.from_user.id, duration_min, duration_min
         )
-        cap = f"**Video Streaming**\n\n🎥<b>**Bermain:** </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n✨<b>__Powered By Scarlet__\n👤**Diminta Oleh:** {CallbackQuery.from_user.mention}"
+        cap = f"**Video Streaming**\n\n🎥<b>Bermain: </b>[{title[:25]}](https://www.youtube.com/watch?v={videoid}) \n✨<b>__Powered By Scarlet__</b>\n👤**Diminta Oleh:** {CallbackQuery.from_user.mention}"
         final_output = await CallbackQuery.message.reply_photo(
             photo=thumb,
             reply_markup=InlineKeyboardMarkup(buttons),
