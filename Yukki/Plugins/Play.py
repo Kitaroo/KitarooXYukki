@@ -440,7 +440,7 @@ async def slider_query_results(_, CallbackQuery):
         )
         med = InputMediaPhoto(
             media=thumb,
-            caption=f"📎**Judul:**{title}\n\n⏳**Durasi:** {duration_min} Menit\n\n ✨ <b>__Powered By [Scarlet](@ScarlettRobot)__",
+            caption=f"📎**Judul:**{title}\n\n⏳**Durasi:** {duration_min} Menit\n\n ✨ <b>__Powered By Scarlet</b>__",
         )
         return await CallbackQuery.edit_message_media(
             media=med, reply_markup=InlineKeyboardMarkup(buttons)
