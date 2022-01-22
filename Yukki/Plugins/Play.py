@@ -48,7 +48,7 @@ async def music_onoff(_, message: Message):
         return
     if len(message.command) != 2:
         return await message.reply_text(
-            "😕 **Salah Penggunaan Perintah.**\n\n» Coba `/musicplayer on` atau `/musicplayer off`"
+            "😕 **Salah Penggunaan Perintah.**\n\n» Coba `/player on` atau `/player off`"
         )
     status = message.text.split(None, 1)[1]
     message.chat.id
@@ -68,7 +68,7 @@ async def music_onoff(_, message: Message):
         await lel.edit(f"✅ **Musik dimatiin.**\n\n• Kalo Udah takdir kita bisa apa?")
     else:
         return await message.reply_text(
-            "😕 **Salah Penggunaan Perintah.**\n\n» Coba `/musicplayer on` atau `/musicplayer off`",
+            "😕 **Salah Penggunaan Perintah.**\n\n» Coba `/player on` atau `/player off`",
         )
 
 
@@ -80,6 +80,8 @@ async def music_onoff(_, message: Message):
 @AssistantAdd
 async def play(_, message: Message):
     await message.delete()
+    global useer 
+    if message.chat.id in DISABLED_GROUPS: return await message.reply_text(f"😕 Maaf{message.from_user.mention} Musiknya dimatikan oleh admin")
     if message.chat.id not in db_mem:
         db_mem[message.chat.id] = {}
     if message.sender_chat:
