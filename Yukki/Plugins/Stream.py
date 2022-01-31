@@ -47,6 +47,58 @@ __HELP__ = f"""
 """
 
 
+@app.on_callback_query(filters.regex(pattern=r"izal"))
+async def izal(_, CallbackQuery):
+    await CallbackQuery.answer()
+    chat_id = CallbackQuery.message.chat.id
+    user_id = CallbackQuery.from_user.id
+    callback_data = CallbackQuery.data.strip()
+    callback_request = callback_data.split(None, 1)[1]
+    videoid, duration, user_id = callback_request.split("|")
+    if CallbackQuery.from_user.id != int(user_id):
+        return await CallbackQuery.answer(
+            "😏 Ini bukan untukmu! Cari music/video anda sendiri.", show_alert=True
+        )
+    await CallbackQuery.message.delete()
+    title, duration_min, duration_sec, thumbnail = get_yt_info_id(videoid)
+    if duration_sec > DURATION_LIMIT:
+        return await CallbackQuery.message.reply_text(
+            f"**Melampaui batas durasi**\n\n**Durasi yang di izinkan: **{DURATION_LIMIT_MIN} minute(s)\n**Durasi yang di terima:** {duration_min} minute(s)"
+        )
+    else:
+        await app.send_photo(
+            chat_id,
+            photo=thumbnail,
+            caption=f"""
+**🏷️ Judul:** [{title[:25]}](https://www.youtube.com/watch?v={videoid})
+**⏱ Durasi:** {duration_min}
+**💡 [More Information](https://t.me/{BOT_USERNAME}?start=info_{videoid})**
+**🎧 Atas permintaan:** [{CallbackQuery.from_user.first_name}](tg://user?id={CallbackQuery.from_user.id})
+**⚡️ Powered By:** [{MUSIC_BOT_NAME}](t.me/{BOT_USERNAME})
+""",
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(
+                            text="🎵 Mulai Music",
+                            callback_data=f"Yukki {videoid}|{duration}|{user_id}",
+                        ),
+                        InlineKeyboardButton(
+                            text="Mulai Video  🎥",
+                            callback_data=f"Choose {videoid}|{duration}|{user_id}",
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text=" Close ",
+                            callback_data=f"forceclose {videoid}|{user_id}",
+                        )
+                    ],
+                ]
+            ),
+        )
+
+
 @app.on_callback_query(filters.regex(pattern=r"Yukki"))
 async def choose_playmode(_, CallbackQuery):
     await CallbackQuery.answer()
