@@ -90,7 +90,7 @@ async def izal(_, CallbackQuery):
                     ],
                     [
                         InlineKeyboardButton(
-                            text=" Close ",
+                            text=" Tutup ",
                             callback_data=f"forceclose {videoid}|{user_id}",
                         )
                     ],
