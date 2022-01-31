@@ -218,6 +218,7 @@ async def play(_, message: Message):
         await LOG_CHAT(message, what)
         mystic = await message.reply_text("🔍 **Mencari**...")
         query = message.text.split(None, 1)[1]
+        user_id = message.from_user.id
         (
             title,
             duration_min,
@@ -225,14 +226,28 @@ async def play(_, message: Message):
             thumb,
             videoid,
         ) = get_yt_info_query(query)
-        await mystic.delete()
-        buttons = url_markup(
-            videoid, duration_min, message.from_user.id, query, 0
-        )
-        return await message.reply_photo(
-            photo=thumb,
-            caption=f"📎**Judul:**{title}\n\n⏳**Duration:** {duration_min} Menit\n\n ✨ <b>__Powered By Scarlet__</b>",
+        a = VideosSearch(query, limit=5)
+        result = (a.result()).get("result")
+        title1 = (result[0]["title"])
+        duration1 = (result[0]["duration"])
+        title2 = (result[1]["title"])
+        duration2 = (result[1]["duration"])      
+        title3 = (result[2]["title"])
+        duration3 = (result[2]["duration"])
+        title4 = (result[3]["title"])
+        duration4 = (result[3]["duration"])
+        title5 = (result[4]["title"])
+        duration5 = (result[4]["duration"])
+        ID1 = (result[0]["id"])
+        ID2 = (result[1]["id"])
+        ID3 = (result[2]["id"])
+        ID4 = (result[3]["id"])
+        ID5 = (result[4]["id"])
+        buttons = search_markup(ID1, ID2, ID3, ID4, ID5, duration1, duration2, duration3, duration4, duration5, user_id, query)
+        return await mystic.edit(
+            f"🎧 **Silahkan pilih lagu yang ingin anda putar** 🎧:\n\n1️⃣ <b>[{title1[:27]}](https://www.youtube.com/watch?v={ID1})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID1})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__\n\n2️⃣ <b>[{title2[:27]}](https://www.youtube.com/watch?v={ID2})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID2})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__\n\n3️⃣ <b>[{title3[:27]}](https://www.youtube.com/watch?v={ID3})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID3})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__\n\n4️⃣ <b>[{title4[:27]}](https://www.youtube.com/watch?v={ID4})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID4})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__\n\n5️⃣ <b>[{title5[:27]}](https://youtube.com/watch?v={ID5})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID5})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__",
             reply_markup=InlineKeyboardMarkup(buttons),
+            disable_web_page_preview=True
         )
 
 
