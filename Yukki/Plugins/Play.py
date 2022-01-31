@@ -354,54 +354,69 @@ async def popat(_, CallbackQuery):
     callback_data = CallbackQuery.data.strip()
     callback_request = callback_data.split(None, 1)[1]
     userid = CallbackQuery.from_user.id
-    i, query, user_id = callback_request.split("|")
+    id, query, user_id = callback_request.split("|")
     if CallbackQuery.from_user.id != int(user_id):
         return await CallbackQuery.answer(
-            "This is not for you! Search You Own Song", show_alert=True
+            "Ini bukan untukmu! Cari streaming mu sendiri", show_alert=True
         )
-    results = YoutubeSearch(query, max_results=10).to_dict()
-    if int(i) == 1:
-        buttons = search_markup2(
-            results[5]["id"],
-            results[6]["id"],
-            results[7]["id"],
-            results[8]["id"],
-            results[9]["id"],
-            results[5]["duration"],
-            results[6]["duration"],
-            results[7]["duration"],
-            results[8]["duration"],
-            results[9]["duration"],
-            user_id,
-            query,
-        )
-        await CallbackQuery.edit_message_text(
-            f"6️⃣<b>{results[5]['title']}</b>\n  ┗  🔗 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{results[5]['id']})__</u>\n\n7️⃣<b>{results[6]['title']}</b>\n  ┗  🔗 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{results[6]['id']})__</u>\n\n8️⃣<b>{results[7]['title']}</b>\n  ┗  🔗 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{results[7]['id']})__</u>\n\n9️⃣<b>{results[8]['title']}</b>\n  ┗  🔗 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{results[8]['id']})__</u>\n\n🔟<b>{results[9]['title']}</b>\n  ┗  🔗 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{results[9]['id']})__</u>",
-            reply_markup=InlineKeyboardMarkup(buttons),
-        )
-        disable_web_page_preview = True
+    i=int(id)
+    query = str(query)
+    try:
+        a = VideosSearch(query, limit=10)
+        result = (a.result()).get("result")
+        title1 = (result[0]["title"])
+        duration1 = (result[0]["duration"])
+        title2 = (result[1]["title"])
+        duration2 = (result[1]["duration"])      
+        title3 = (result[2]["title"])
+        duration3 = (result[2]["duration"])
+        title4 = (result[3]["title"])
+        duration4 = (result[3]["duration"])
+        title5 = (result[4]["title"])
+        duration5 = (result[4]["duration"])
+        title6 = (result[5]["title"])
+        duration6 = (result[5]["duration"])
+        title7 = (result[6]["title"])
+        duration7 = (result[6]["duration"])      
+        title8 = (result[7]["title"])
+        duration8 = (result[7]["duration"])
+        title9 = (result[8]["title"])
+        duration9 = (result[8]["duration"])
+        title10 = (result[9]["title"])
+        duration10 = (result[9]["duration"])
+        ID1 = (result[0]["id"])
+        ID2 = (result[1]["id"])
+        ID3 = (result[2]["id"])
+        ID4 = (result[3]["id"])
+        ID5 = (result[4]["id"])
+        ID6 = (result[5]["id"])
+        ID7 = (result[6]["id"])
+        ID8 = (result[7]["id"])
+        ID9 = (result[8]["id"])
+        ID10 = (result[9]["id"])
+    except Exception as e:
+        n = await mystic.edit(f"😕 Song not found.\n\n» Try searching with a clearer title, or add the artist's name as well..")
+        await asyncio.sleep(10)
+        await message.delete()
+        await n.delete()
         return
-    if int(i) == 2:
-        buttons = search_markup(
-            results[0]["id"],
-            results[1]["id"],
-            results[2]["id"],
-            results[3]["id"],
-            results[4]["id"],
-            results[0]["duration"],
-            results[1]["duration"],
-            results[2]["duration"],
-            results[3]["duration"],
-            results[4]["duration"],
-            user_id,
-            query,
-        )
+    if i == 1:
+        buttons = search_markup2(ID6, ID7, ID8, ID9, ID10, duration6, duration7, duration8, duration9, duration10, user_id, query)
         await CallbackQuery.edit_message_text(
-            f"1️⃣<b>{results[0]['title']}</b>\n  ┗  🔗 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{results[0]['id']})__</u>\n\n2️⃣<b>{results[1]['title']}</b>\n  ┗  🔗 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{results[1]['id']})__</u>\n\n3️⃣<b>{results[2]['title']}</b>\n  ┗  🔗 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{results[2]['id']})__</u>\n\n4️⃣<b>{results[3]['title']}</b>\n  ┗  🔗 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{results[3]['id']})__</u>\n\n5️⃣<b>{results[4]['title']}</b>\n  ┗  🔗 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{results[4]['id']})__</u>",
+            f"🎧 **Silahkan pilih lagu yang ingin anda putar** 🎧:\n\n6️⃣ <b>[{title6[:27]}](https://www.youtube.com/watch?v={ID6})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID6})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__\n\n7️⃣ <b>[{title7[:27]}](https://www.youtube.com/watch?v={ID7})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID7})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__\n\n8️⃣ <b>[{title8[:27]}](https://www.youtube.com/watch?v={ID8})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID8})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__\n\n9️⃣ <b>[{title9[:27]}](https://www.youtube.com/watch?v={ID9})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID9})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__\n\n🔟 <b>[{title10[:27]}](https://youtube.com/watch?v={ID10})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID10})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__",
             reply_markup=InlineKeyboardMarkup(buttons),
+            disable_web_page_preview=True
         )
-        disable_web_page_preview = True
         return
+    if i == 2:
+        buttons = search_markup(ID1, ID2, ID3, ID4, ID5, duration1, duration2, duration3, duration4, duration5, user_id, query)
+        await CallbackQuery.edit_message_text(
+            f"🎧 **Silahkan pilih lagu yang ingin anda putar** 🎧:\n\n1️⃣ <b>[{title1[:27]}](https://www.youtube.com/watch?v={ID1})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID1})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__\n\n2️⃣ <b>[{title2[:27]}](https://www.youtube.com/watch?v={ID2})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID2})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__\n\n3️⃣ <b>[{title3[:27]}](https://www.youtube.com/watch?v={ID3})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID3})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__\n\n4️⃣ <b>[{title4[:27]}](https://www.youtube.com/watch?v={ID4})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID4})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__\n\n5️⃣ <b>[{title5[:27]}](https://youtube.com/watch?v={ID5})</b>\n ├ 📚 <b>[More Information](https://t.me/{BOT_USERNAME}?start=info_{ID5})</b>\n └ 💎 __Powered by {MUSIC_BOT_NAME}__",
+            reply_markup=InlineKeyboardMarkup(buttons),
+            disable_web_page_preview = True
+        )
+        return
+
 
 
 @app.on_callback_query(filters.regex(pattern=r"slider"))
