@@ -2,7 +2,7 @@ import asyncio
 from os import path
 
 from pyrogram import filters
-from pyrogram.types import (InlineKeyboardMarkup, InputMediaPhoto,
+from pyrogram.types import (InlineKeyboardMarkup, InlineKeyboardButton, InputMediaPhoto,
                             KeyboardButton, Message, ReplyKeyboardMarkup,
                             ReplyKeyboardRemove, Voice)
 from youtube_search import YoutubeSearch
