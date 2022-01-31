@@ -99,52 +99,6 @@ async def izal(_, CallbackQuery):
         )
 
 
-@app.on_callback_query(filters.regex(pattern=r"Yukki"))
-async def startyuplay(_, CallbackQuery):
-    if CallbackQuery.message.chat.id not in db_mem:
-        db_mem[CallbackQuery.message.chat.id] = {}
-    callback_data = CallbackQuery.data.strip()
-    callback_request = callback_data.split(None, 1)[1]
-    chat_id = CallbackQuery.message.chat.id
-    chat_title = CallbackQuery.message.chat.title
-    videoid, duration, user_id = callback_request.split("|")
-    if str(duration) == "None":
-        return await CallbackQuery.answer(
-            f"Sorry! Its a Live Video.", show_alert=True
-        )
-    if CallbackQuery.from_user.id != int(user_id):
-        return await CallbackQuery.answer(
-            "This is not for you! Search You Own Song.", show_alert=True
-        )
-    await CallbackQuery.message.delete()
-    title, duration_min, duration_sec, thumbnail = get_yt_info_id(videoid)
-    if duration_sec > DURATION_LIMIT:
-        return await CallbackQuery.message.reply_text(
-            f"**Duration Limit Exceeded**\n\n**Allowed Duration: **{DURATION_LIMIT_MIN} minute(s)\n**Received Duration:** {duration_min} minute(s)"
-        )
-    await CallbackQuery.answer()
-    mystic = await CallbackQuery.message.reply_text(
-        f"**Downloading** {title[:50]}...\n\n ▓▓▓▓▓▓▓▓▓▓▓▓ 0%"
-    )
-    downloaded_file = await loop.run_in_executor(
-        None, download, videoid, mystic, title
-    )
-    raw_path = await convert(downloaded_file)
-    theme = await check_theme(chat_id)
-    chat_title = await specialfont_to_normal(chat_title)
-    thumb = await gen_thumb(thumbnail, title, user_id, theme, chat_title)
-    if chat_id not in db_mem:
-        db_mem[chat_id] = {}
-    await start_stream(
-        CallbackQuery,
-        raw_path,
-        videoid,
-        thumb,
-        title,
-        duration_min,
-        duration_sec,
-        mystic,
-    )
 
 
 @app.on_callback_query(filters.regex(pattern=r"Choose"))
