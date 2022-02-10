@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 from pyrogram.errors.exceptions import FloodWait
 
 from Yukki import MUSIC_BOT_NAME, app, db_mem
-from Yukki.Utilities.formatters import bytes
 from Yukki.Utilities.ping import get_readable_time
 
 
