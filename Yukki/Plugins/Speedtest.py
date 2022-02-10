@@ -6,7 +6,6 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 from Yukki import BOT_ID, SUDOERS, app
-from Yukki.Plugins.Speedtest import bytes
 
 __MODULE__ = "Speedtest"
 __HELP__ = """
