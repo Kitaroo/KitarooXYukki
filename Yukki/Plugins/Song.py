@@ -15,31 +15,24 @@ from Yukki.Utilities.youtube import get_yt_info_query, get_yt_info_query_slider
 
 loop = asyncio.get_event_loop()
 
-__MODULE__ = "Song"
-__HELP__ = """
 
-
-/song [Youtube URL or Search Query] 
-- Download the particular query in audio or video format.
-
-
-
-"""
-
-
-@app.on_message(
-    filters.command(["song", f"song@{BOT_USERNAME}"]) & filters.group
-)
+@app.on_message(filters.command(["song", f"song@{BOT_USERNAME}"]))
 @PermissionCheck
 async def play(_, message: Message):
-    if message.sender_chat:
-        return await message.reply_text(
-            "You're an __Anonymous Admin__ in this Chat Group!\nRevert back to User Account From Admin Rights."
-        )
-    await message.delete()
+    if message.chat.type == "private":
+        pass
+    else:
+        if message.sender_chat:
+            return await message.reply_text(
+                "**Anda Seorang __Anonymous Admin__ Di Grup Ini!** \n**Kembali Ke Akun Pengguna Dari Hak Admin.**"
+            )
+    try:
+        await message.delete()
+    except:
+        pass
     url = get_url(message)
     if url:
-        mystic = await message.reply_text("🔄 Processing URL... Please Wait!")
+        mystic = await message.reply_text("🔄 Memporoses Link... Harap Tunggu!")
         query = message.text.split(None, 1)[1]
         (
             title,
@@ -49,21 +42,21 @@ async def play(_, message: Message):
             videoid,
         ) = await loop.run_in_executor(None, get_yt_info_query, query)
         if str(duration_min) == "None":
-            return await mystic.edit("Sorry! Its a Live Video")
+            return await mystic.edit("Maaf! Ini Live Video")
         await mystic.delete()
         buttons = song_download_markup(videoid, message.from_user.id)
         return await message.reply_photo(
             photo=thumb,
-            caption=f"📎**Title:**{title}\n\n⏳**Duration:** {duration_min} Mins\n\n__[Get Additional Information About Video](https://t.me/{BOT_USERNAME}?start=info_{videoid})__",
+            caption=f"📎**Judul:** {title}\n\n⏳**Durasi:** {duration_min} Menit\n\n✨__Powered By [Scarlet](https://t.me/{BOT_USERNAME})__",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     else:
         if len(message.command) < 2:
             await message.reply_text(
-                "**Usage:**\n\n/song [Youtube Url or Music Name]\n\nDownloads the Particular Query."
+                "**Gunakan:**\n\n/**song [Link Youtube Atau Judul]**\n\n**Mengunduh Permintaan Khusus**."
             )
             return
-        mystic = await message.reply_text("🔍 Searching Your Query...")
+        mystic = await message.reply_text("🔍 Mencari Permintaan Anda...")
         query = message.text.split(None, 1)[1]
         (
             title,
@@ -73,14 +66,14 @@ async def play(_, message: Message):
             videoid,
         ) = await loop.run_in_executor(None, get_yt_info_query, query)
         if str(duration_min) == "None":
-            return await mystic.edit("Sorry! Its a Live Video")
+            return await mystic.edit("Maaf! Ini Live Video")
         await mystic.delete()
         buttons = song_markup(
             videoid, duration_min, message.from_user.id, query, 0
         )
         return await message.reply_photo(
             photo=thumb,
-            caption=f"📎**Title: **{title}\n\n⏳**Duration:** {duration_min} Mins\n\n__[Get Additional Information About Video](https://t.me/{BOT_USERNAME}?start=info_{videoid})__",
+            caption=f"📎**Judul:** {title}\n\n⏳**Duration:** {duration_min} Menit\n\n✨__Powered By[Scarlet](https://t.me/{BOT_USERNAME})__",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
 
@@ -106,7 +99,7 @@ async def song_right(_, CallbackQuery):
     what, type, query, user_id = callback_request.split("|")
     if CallbackQuery.from_user.id != int(user_id):
         return await CallbackQuery.answer(
-            "Search Your Own Music. You're not allowed to use this button.",
+            "Cari Musik Mu Sendiri. Kamu Tidak Diperbolehkan Menggunakan Tombol Ini.",
             show_alert=True,
         )
     what = str(what)
@@ -116,7 +109,7 @@ async def song_right(_, CallbackQuery):
             query_type = 0
         else:
             query_type = int(type + 1)
-        await CallbackQuery.answer("Getting Next Result", show_alert=True)
+        await CallbackQuery.answer("Mendapatkan Hasil Berikutnya", show_alert=True)
         (
             title,
             duration_min,
@@ -131,7 +124,7 @@ async def song_right(_, CallbackQuery):
         )
         med = InputMediaPhoto(
             media=thumb,
-            caption=f"📎**Title: **{title}\n\n⏳**Duration:** {duration_min} Mins\n\n__[Get Additional Information About Video](https://t.me/{BOT_USERNAME}?start=info_{videoid})__",
+            caption=f"📎**Judul:**{title}\n\n⏳**Durasi:** {duration_min} Menit\n\n✨__Powered By [Scarlet](https://t.me/{BOT_USERNAME})__",
         )
         return await CallbackQuery.edit_message_media(
             media=med, reply_markup=InlineKeyboardMarkup(buttons)
@@ -141,7 +134,7 @@ async def song_right(_, CallbackQuery):
             query_type = 9
         else:
             query_type = int(type - 1)
-        await CallbackQuery.answer("Getting Previous Result", show_alert=True)
+        await CallbackQuery.answer("Mendapatkan Hasil Sebelumnya", show_alert=True)
         (
             title,
             duration_min,
@@ -156,7 +149,7 @@ async def song_right(_, CallbackQuery):
         )
         med = InputMediaPhoto(
             media=thumb,
-            caption=f"📎**Title: **{title}\n\n⏳**Duration:** {duration_min} Mins\n\n__[Get Additional Information About Video](https://t.me/{BOT_USERNAME}?start=info_{videoid})__",
+            caption=f"📎**Judul:** {title}\n\n⏳**Durasi:** {duration_min} Menit\n\n✨__Powered By [Scarlet](https://t.me/{BOT_USERNAME})__",
         )
         return await CallbackQuery.edit_message_media(
             media=med, reply_markup=InlineKeyboardMarkup(buttons)
