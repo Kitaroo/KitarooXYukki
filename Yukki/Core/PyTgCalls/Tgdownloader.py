@@ -6,6 +6,7 @@ from pyrogram.errors.exceptions import FloodWait
 
 from Yukki import MUSIC_BOT_NAME, app, db_mem
 from Yukki.Utilities.ping import get_readable_time
+from Yukki.Plugins.Speedtest import bytes
 
 
 async def telegram_download(message, mystic):
