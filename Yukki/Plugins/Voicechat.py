@@ -37,6 +37,21 @@ Only for Sudo Users
 - Bot will leave the particular chat.
 """
 
+@app.on_callback_query(filters.regex("gback_list_chose_stream"))
+async def gback_list_chose_stream(_, CallbackQuery):
+    await CallbackQuery.answer()
+    callback_data = CallbackQuery.data.strip()
+    callback_request = callback_data.split(None, 1)[1]
+    videoid, duration, user_id = callback_request.split("|")
+    if CallbackQuery.from_user.id != int(user_id):
+        return await CallbackQuery.answer(
+            "Ini Tidak Untuk Mu! Cari Lagu Mu Sendiri.", show_alert=True
+        )
+    buttons = choose_markup(videoid, duration, user_id)
+    await CallbackQuery.edit_message_reply_markup(
+        reply_markup=InlineKeyboardMarkup(buttons)
+    )
+
 
 @app.on_callback_query(filters.regex("pr_go_back_timer"))
 async def pr_go_back_timer(_, CallbackQuery):
