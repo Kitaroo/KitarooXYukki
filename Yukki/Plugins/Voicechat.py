@@ -47,7 +47,7 @@ async def gback_list_chose_stream(_, CallbackQuery):
         return await CallbackQuery.answer(
             "Ini Tidak Untuk Mu! Cari Lagu Mu Sendiri.", show_alert=True
         )
-    buttons = choose_markup(videoid, duration, user_id)
+    buttons = chose_markup(videoid, duration, user_id)
     await CallbackQuery.edit_message_reply_markup(
         reply_markup=InlineKeyboardMarkup(buttons)
     )
