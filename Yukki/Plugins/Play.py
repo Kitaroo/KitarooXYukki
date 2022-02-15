@@ -7,10 +7,12 @@ from pyrogram.types import (InlineKeyboardMarkup, InputMediaPhoto, Message,
 from youtube_search import YoutubeSearch
 from youtubesearchpython import VideosSearch
 
+import Yukki
 from Yukki import (BOT_USERNAME, DURATION_LIMIT, DURATION_LIMIT_MIN,
                    MUSIC_BOT_NAME, app, db_mem)
 from Yukki.Core.PyTgCalls.Converter import convert
 from Yukki.Core.PyTgCalls.Downloader import download
+from Yukki.Core.PyTgCalls.Tgdownloader import telegram_download
 from Yukki.Database import (get_active_video_chats, get_video_limit,
                             is_active_video_chat)
 from Yukki.Decorators.assistant import AssistantAdd
@@ -175,7 +177,7 @@ async def play(_, message: Message):
                 pass
         except:
             pass
-        file = await message.reply_to_message.download()
+        file = await telegram_download(message, mystic)
         return await start_stream_video(
             message,
             file,
@@ -199,7 +201,7 @@ async def play(_, message: Message):
         buttons = url_markup2(videoid, duration_min, message.from_user.id)
         return await message.reply_photo(
             photo=thumb,
-            caption=f"📎**Judul:**{title}\n\n⏳**Duration:** {duration_min} menit\n\n ✨ <b>__Powered By Scarlet__</b>",
+            caption=f"📎**Judul:**{title}\n\n⏳**Durasi:** {duration_min} menit\n\n ✨ <b>__Powered By Scarlet__</b>",
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     else:
