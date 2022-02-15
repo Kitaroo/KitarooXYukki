@@ -61,7 +61,7 @@ def stream_quality_markup(videoid, duration, user_id):
                 text="⬅️ Kembali",
                 callback_data=f"gback_list_chose_stream {videoid}|{duration}|{user_id}",
             ),
-        ]
+        ],
         [
             InlineKeyboardButton(
                 text="🗑 Tutup Pencarian",
