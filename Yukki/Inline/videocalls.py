@@ -65,7 +65,7 @@ def stream_quality_markup(videoid, duration, user_id):
         [
             InlineKeyboardButton(
                 text="🗑 Tutup Pencarian",
-                callback_data=f"forceclose {videoid}|{user_id}",
+                callback_data=f"izal {videoid}|{duration}|{user_id}",
             ),
         ],
     ]
