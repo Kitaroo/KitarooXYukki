@@ -476,7 +476,7 @@ All commands can be used with: /
             disable_web_page_preview=True,
         )
 
-     return await client.answer_callback_query(query.id)
+         
 
 
 if __name__ == "__main__":
