@@ -54,7 +54,7 @@ async def forceclose(_, CallbackQuery):
 )
 @AdminRightsCheckCB
 @checkerCB
-async def admin_risghts(_, CallbackQuery):
+async def admin_rights(_, CallbackQuery):
     global get_queue
     command = CallbackQuery.matches[0].group(1)
     if not await is_active_chat(CallbackQuery.message.chat.id):
