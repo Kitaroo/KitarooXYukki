@@ -13,7 +13,7 @@
 # Yukki Music Bot
 A Powerful Telegram Music+Video Bot by which you can stream songs, video and even live streams in your group calls via various sources. It comes with a user friendly and easy to use yet elegant features.
 <p align="center">
-<a href="https://dashboard.heroku.com/new?template=https://github.com/Kitaroo/KitaroXYukki"><img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="250""/</a>  
+<a href="https://dashboard.heroku.com/new?template=https://github.com/Kitaroo/KitarooXYukki"><img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="250""/</a>  
 
 
 ## Deployment
