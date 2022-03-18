@@ -1,7 +1,7 @@
 {
   "name": "Yukki Music Bot",
   "description": "A Telegram Music Bot with proper functions written in Python with Pyrogram and Py-Tgcalls.",
-  "repository": "https://github.com/Kitaroo/TaroXYukki",
+  "repository": "https://github.com/Kitaroo/KitarooXYukki",
   "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
   "keywords": [
   "python3",
